@@ -1,3 +1,15 @@
+<?php 
+const CINEMA_KAZIMIERZ = 1076;
+const CINEMA_PLAZA = 1063;
+const CINEMA_ZAKOPIANKA = 1064;
+const CINEMA_BONARKA = 1090;
+$aCinemas = [
+	"Kazimierz" => CINEMA_KAZIMIERZ,
+	"Plaza" => CINEMA_PLAZA,
+	"Zakopianka" => CINEMA_ZAKOPIANKA,
+	"Bonarka" => CINEMA_BONARKA,
+];
+?>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,45 +20,17 @@
 </head>
 <body>
 <div class="container">
-<form action="" method="get">
-<input type='date' name='date' value="<?=$date ? $date : date("Y-m-d")?>"'>
+<form>
+<input id='dateInput' type='date' name='date' value="<?=date("Y-m-d")?>"'>
 <br/>
-<select id="select" type='select' name='cinema' >
+<select id="cinemaSelect" type='select' name='cinema' >
 <?php foreach($aCinemas as $k => $c) : ?>
 	<option value="<?=$c?>" ><?=$k?></option>
 <?php endforeach;?>
 </select><br/>
-<button type="submit">Sprawdź</button>
 </form>
-<?php
-function version($a){
-	$rs = "";
-	if(in_array('2d', $a)){
-		$rs .= " 2D ";
-	}
-	else if(in_array('3d', $a)){
-		$rs .= " 2D ";
-	}
-	else {
-		var_dump($a);
-	}
-	if(in_array('dubbed', $a)){
-		$rs .= "<span class='blue'>Dubbing</span>";
-	}
-	else if(in_array('subbed', $a)){
-		$rs .= "<span class='green'>Z napisami</span>";
-	}
-	else if(in_array('local-language', $a) || in_array('original-lang-pl', $a)){
-		$rs .= "<span class='red'>Po polsku</span>";
-	}
-	else{
-		var_dump($a);
-	}
-	
-
-	return $rs;
-}
-?>
+<div id ='movieList'>
+</div>
 </div>
 <script src="app.js?v=<?= date("ymsd") ?>"></script>
 </body>
