@@ -7,9 +7,7 @@
         <?php require_once('./includes/selects.php') ?>
         <div id="movieList"></div>
     </div>
-    <script src="./assets/js/all.js?v=<?= date(" ymsd") ?>
-        ">
-    </script>
+    <script src="./assets/js/all.js?v=<?= date("ymsd") ?>"></script>
 </body>
 
 </html> 
