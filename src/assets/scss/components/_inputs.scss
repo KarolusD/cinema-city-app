@@ -1,0 +1,55 @@
+.select--cinema, .select--date{
+    display: block;
+
+    min-width: 118px;
+    height: 36px;
+    color: $c-p-orange;
+    background: $c-p-black-g;
+    font-family: $ff;
+    font-weight: $fw-r;
+    font-size: 12px !important;
+    letter-spacing: 1px;
+    overflow: hidden;
+    padding:3px;
+    margin: 0;
+    border-radius:4px !important;
+    font-size: 12px;
+    cursor: pointer;
+
+    border:none !important;
+    outline:none;
+    box-shadow: none;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    // -webkit-user-select: none;
+    &:focus, :active {
+        border: none;
+        outline: none;
+        box-shadow: none !important;
+        -webkit-appearance: none;
+    }
+    
+    &:hover {
+        border: none;
+        outline: none;
+        box-shadow: none !important;
+        -webkit-appearance: none;
+    }
+}
+
+
+/* dataPicker up/down arrow reset */
+input[type=date]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    display: none;
+}
+
+/* dataPicker close icon reset */
+input[type=date]::-webkit-clear-button {
+    -webkit-appearance: none;
+    display: none;
+}
+
