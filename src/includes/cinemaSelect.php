@@ -1,12 +1,14 @@
 <div class="row">
-    <div class="input-field flex-row">
-        <select class="select select--cinema" id="cinemaSelect" name="cinema">
-            <option disabled>Choose your option</option>
+    <div class="input-field">
+        <select style="display:none" class="select-cinema" name="cinema">
+            <option value="" disabled>Wybierz kino</option>
             <?php foreach ($aCinemas as $k => $c) : ?>
-            <option value="<?= $c ?>">
-                <?= $k ?>
-            </option>
+            <option value="<?= $c ?>"><?= $k ?></option>
             <?php endforeach; ?>
         </select>
+        <div class="arrow">
+            <span></span>
+            <span></span>
+        </div>
     </div>
 </div> 

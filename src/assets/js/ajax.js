@@ -29,30 +29,108 @@ var T = {
 };
 
 var dateInput = document.getElementById('dateInput');
-var cinemaSelect = document.getElementById('cinemaSelect');
+var cinemaSelect = document.querySelector('.select-cinema'); //must use className
 var movieList = document.getElementById('movieList');
+
 T.post('./config/savetocache.php', dateInput.value, cinemaSelect.value, function(data) {
-		c(data);
+	c(data);
 });
 
-dateInput.addEventListener('input', function() {
-	console.log(dateInput.value);
-    T.post('./config/savetocache.php', dateInput.value, cinemaSelect.value, function(data) {
-		//console.log(data);
-		c(data);
-	});
-});
+dateInput.addEventListener('change', selectDate);
+cinemaSelect.addEventListener('change', selectCinema);
 
-cinemaSelect.addEventListener('input', function() {
+function selectCinema() {
 	console.log('kino select');
-    T.post('./config/savetocache.php', dateInput.value, cinemaSelect.value, function(data) {
+	T.post('./config/savetocache.php', dateInput.value, cinemaSelect.value, function (data) {
 		c(data);
 	});
-});
+}
 
+function selectDate() {
+	console.log(dateInput.value);
+	T.post('./config/savetocache.php', dateInput.value, cinemaSelect.value, function (data) {
+		c(data);
+	});
+}
 
 function c(e) {
-	for(var property in e) {
+	for (var property in e) {
 		console.log(e[property]);
 	}
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+	var elems = document.querySelectorAll('select');
+	const options = {
+		classes: 'select select--cinema'
+	}
+	var instances = M.FormSelect.init(elems, options);
+});
+
+
+document.addEventListener('DOMContentLoaded', createDatePicker);
+
+function createDatePicker() {
+	var elems = document.querySelectorAll('.datepicker');
+	const options = {
+		format: 'yyyy-mm-dd',
+		i18n: {
+			cancel: 'Anuluj',
+			done: 'Zatwierdź',
+			clear: 'Wyczyść',
+			weekdays: [
+				'Niedziela',
+				'Poniedziałek',
+				'Wtorek',
+				'Środa',
+				'Czwartek',
+				'Piątek',
+				'Sobota'
+			],
+
+			weekdaysShort: [
+				'Niedz',
+				'Pon',
+				'Wt',
+				'Śr',
+				'Czw',
+				'Pt',
+				'Sob'
+			],
+
+			months: [
+				'Styczeń',
+				'Luty',
+				'Marzec',
+				'Kwiecień',
+				'Maj',
+				'Czerwiec',
+				'Lipiec',
+				'Sierpień',
+				'Wrzesień',
+				'Październik',
+				'Listopad',
+				'Grudzień'
+			],
+
+			monthsShort: [
+				'Sty',
+				'Lut',
+				'Mar',
+				'Kwi',
+				'Maj',
+				'Cze',
+				'Lip',
+				'Sie',
+				'Wrz',
+				'Lis',
+				'Paź',
+				'Gru'
+			]
+		}
+	}
+	var datepicker = M.Datepicker.init(elems, options);
+}
+
+
+

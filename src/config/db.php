@@ -1,7 +1,7 @@
 <?php
 $host = '127.0.0.1';
 $username = 'root';
-$pass = '';
+$pass = 'toor';
 $dbname = 'cinema_city';
 $mysqli = new mysqli($host, $username, $pass, $dbname);
 

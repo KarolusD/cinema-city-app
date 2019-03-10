@@ -107,14 +107,14 @@ gulp.task('vendor', () => {
     .pipe(browserSync.stream());
 });
 
-gulp.task('build', gulp.series('clear', 'php', 'html', 'scss', 'js', 'images', 'vendor'));
+gulp.task('build', gulp.series('clear', 'php', 'scss', 'js', 'images', 'vendor'));
 
-gulp.task('dev', gulp.series('php', 'html', 'scss', 'js'));
+gulp.task('dev', gulp.series('php', 'scss', 'js'));
 
 gulp.task('serve', () => {
   connect.server({}, function () {
     return browserSync.init({
-      proxy: 'localhost'
+      proxy: 'localhost/cinemacityapp/dist'
     });
   });
 });

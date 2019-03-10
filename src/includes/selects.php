@@ -1,6 +1,6 @@
-<form class="flex-row wrapper">
+<form class="wrapper flex-row">
 
-    <?php require_once('./includes/dataPicker.php') ?>
+    <?php require_once('./includes/datePicker.php') ?>
     <?php require_once('./includes/cinemaSelect.php') ?>
 
 </form> 

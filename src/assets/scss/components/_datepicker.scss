@@ -1,0 +1,34 @@
+/* --- datepicker header --- */
+.datepicker-date-display {
+    background: $c-p-black-g;
+}
+
+.datepicker-table{
+    color: $c-p-black;
+}
+
+.btn-flat {
+    color: $c-p-orange;
+    text-transform: capitalize;
+}
+
+.is-today {
+    color: $c-s-orange !important;
+}
+
+.is-selected {
+    background: $c-p-black-g !important;
+}
+
+
+.select-month > input {
+    width: 90px !important;
+}
+
+/* --- Datepicker month and year dropdown --- */
+.dropdown-content {
+    li > span {
+        font-size: 14px;
+        color: $c-p-orange;
+    }
+}
