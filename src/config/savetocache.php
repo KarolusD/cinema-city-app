@@ -93,19 +93,27 @@ function ajaxReturn($return) {
                 'movie_id' => $event['movie_id'],
                 'name' => $event['name'],
                 'cinema_id' => $event['cinema_id'],
-                'time' => array($event['time']),
+                'showtime' => array(
+                    array(
+                        'time' => $event['time'],
+                        'booking_link' => $event['booking_link'],
+                        'attributeIds' => $event['attributeIds']
+
+                    )
+                ),
                 'data' => $event['data'],
-                'booking_link' => $event['booking_link'],
                 'poster_link' => $event['poster_link'],
                 'length' => $event['length'],
-                'attributeIds' => $event['attributeIds']
             ];
         } else {
-            // if it is, push only playtime hour
-            // repeated movie name
+            // if it is, push only playtime hour, booking link and attribute Ids
+            // repeated movie
             $repeatedMN = $event['name'];
-            array_push($ajax[$repeatedMN]['time'], $event['time']);
-          
+            array_push($ajax[$repeatedMN]['showtime'], [
+                'time' => $event['time'],
+                'booking_link' => $event['booking_link'],
+                'attributeIds' => $event['attributeIds']
+            ]);
         }
     }
     // print_r($ajax);
@@ -147,7 +155,7 @@ function parseCinemaResponse($cinema_id, $date, $mysqli) {
                     'booking_link' => $event['bookingLink'],
                     'poster_link' => $movie['posterLink'],
                     'length' => $movie['length'],
-                    'attributeIds' => json_encode($movie['attributeIds'])
+                    'attributeIds' => $movie['attributeIds']
                 ];
 
                 $mysqli->query($sql);
