@@ -32,3 +32,8 @@
         color: $c-p-orange;
     }
 }
+
+// reset strange background on datepicker
+.modal-overlay {
+    background: none !important;
+}

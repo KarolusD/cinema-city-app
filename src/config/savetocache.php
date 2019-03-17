@@ -21,24 +21,28 @@ function objectToArray($d)
 }
 function version($a)
 {
-    $rs = "";
-    if (in_array('2d', $a)) {
-        $rs .= " 2D ";
-    } else if (in_array('3d', $a)) {
-        $rs .= " 2D ";
+    $image = null;
+    $lang = null;
+    $rs = [];
+
+    if (in_array('3d', $a)) {
+        $image = "3D";
+    } else if (in_array('2d', $a)) {
+        $image = "2D";;
     } else {
-        var_dump($a);
-    }
-    if (in_array('dubbed', $a)) {
-        $rs .= "<span class='blue'>Dubbing</span>";
-    } else if (in_array('subbed', $a)) {
-        $rs .= "<span class='green'>Z napisami</span>";
-    } else if (in_array('local-language', $a) || in_array('original-lang-pl', $a)) {
-        $rs .= "<span class='red'>Po polsku</span>";
-    } else {
-        var_dump($a);
+        $image = "2D";
     }
 
+    if (in_array('dubbed', $a)) {
+        $lang = "Dubbing";
+    } else if (in_array('subbed', $a)) {
+        $lang = "Z napisami";
+    } else if (in_array('local-language', $a) || in_array('original-lang-pl', $a)) {
+        $lang = "Po polsku";
+    } else {
+        $lang = "Z napisami";
+    }
+    array_push($rs, $image, $lang);
 
     return $rs;
 }
@@ -95,10 +99,9 @@ function ajaxReturn($return) {
                 'cinema_id' => $event['cinema_id'],
                 'showtime' => array(
                     array(
-                        'time' => $event['time'],
-                        'booking_link' => $event['booking_link'],
-                        'attributeIds' => $event['attributeIds']
-
+                        'time' => date("H:i", $event['time']),
+                        'booking_link' => 'https://www.cinema-city.pl/'.$event['booking_link'],
+                        'attributeIds' => version($event['attributeIds'])
                     )
                 ),
                 'data' => $event['data'],
@@ -110,9 +113,9 @@ function ajaxReturn($return) {
             // repeated movie
             $repeatedMN = $event['name'];
             array_push($ajax[$repeatedMN]['showtime'], [
-                'time' => $event['time'],
-                'booking_link' => $event['booking_link'],
-                'attributeIds' => $event['attributeIds']
+                'time' => date("H:i", $event['time']),
+                'booking_link' => 'https://www.cinema-city.pl/'.$event['booking_link'],
+                'attributeIds' => version($event['attributeIds'])
             ]);
         }
     }
