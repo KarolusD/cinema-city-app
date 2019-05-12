@@ -10,4 +10,4 @@
     <script src="./assets/js/all.js?v=<?= date("ymsd") ?>"></script>
 </body>
 
-</html> 
+</html>

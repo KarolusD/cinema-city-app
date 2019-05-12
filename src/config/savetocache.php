@@ -19,19 +19,24 @@ function objectToArray($d)
         return $d;
     }
 }
-function version($a)
+
+// type of movie [2d, 3d]
+function typeOfMovie($a)
 {
     $image = null;
-    $lang = null;
-    $rs = [];
 
-    if (in_array('3d', $a)) {
-        $image = "3D";
-    } else if (in_array('2d', $a)) {
-        $image = "2D";;
-    } else {
+    if (!in_array('3d', $a)) {
         $image = "2D";
+    } else if (in_array('3d', $a)) {
+        $image = "3D";
     }
+
+    return $image;
+}
+
+function langVersion($a)
+{
+    $lang = null;
 
     if (in_array('dubbed', $a)) {
         $lang = "Dubbing";
@@ -39,17 +44,23 @@ function version($a)
         $lang = "Z napisami";
     } else if (in_array('local-language', $a) || in_array('original-lang-pl', $a)) {
         $lang = "Po polsku";
-    } else {
-        $lang = "Z napisami";
     }
-    array_push($rs, $image, $lang);
+    //array_push($rs, $image, $lang);
 
-    return $rs;
+    return $lang;
 }
+
+// filter movies by current filter
+function filterMovies($filterVal, $movieType)
+{
+    return $filterVal == $movieType;
+}
+
 const CINEMA_KAZIMIERZ = 1076;
 const CINEMA_PLAZA = 1063;
 const CINEMA_ZAKOPIANKA = 1064;
 const CINEMA_BONARKA = 1090;
+
 
 // $aCinemas = [
 //     "Kazimierz" => CINEMA_KAZIMIERZ, 
@@ -61,8 +72,14 @@ const CINEMA_BONARKA = 1090;
 require_once('./db.php');
 
 $cinema_id = $_POST['cinema'] ?? CINEMA_KAZIMIERZ;
-$date = $_POST['date'] ?? date("Y-m-d");
+$date = $_POST['date'] ?? date("d-m-Y");
+$date = date("Y-m-d", strtotime($date));
+$filter = $_POST['filter'] ?? 'Wszystkie';
+
+
 $sql = "SELECT * FROM cache_info WHERE cinema_id = $cinema_id AND data = '$date'";
+
+
 //  echo $sql;die;
 $result = $mysqli->query($sql);
 $return = [];
@@ -87,46 +104,52 @@ if ($result->num_rows === 0) {
 }
 $i = 0;
 
-function ajaxReturn($return) {
+function ajaxReturn($return, $filter)
+{
     $ajax = [];
 
     foreach ($return as $event) {
-        // check if movie is played more then once
-        if (!in_array($event['name'], array_column($ajax, 'name'))) {
-            $ajax[$event['name']] = [
-                'movie_id' => $event['movie_id'],
-                'name' => $event['name'],
-                'cinema_id' => $event['cinema_id'],
-                'showtime' => array(
-                    array(
-                        'time' => date("H:i", $event['time']),
-                        'booking_link' => 'https://www.cinema-city.pl/'.$event['booking_link'],
-                        'attributeIds' => version($event['attributeIds'])
-                    )
-                ),
-                'data' => $event['data'],
-                'poster_link' => $event['poster_link'],
-                'length' => $event['length'],
-            ];
-        } else {
-            // if it is, push only playtime hour, booking link and attribute Ids
-            // repeated movie
-            $repeatedMN = $event['name'];
-            array_push($ajax[$repeatedMN]['showtime'], [
-                'time' => date("H:i", $event['time']),
-                'booking_link' => 'https://www.cinema-city.pl/'.$event['booking_link'],
-                'attributeIds' => version($event['attributeIds'])
-            ]);
+        //print_r($event);
+        // check if movie_type(2D, 3D) is the same as selected filter
+        if ($filter === $event['movie_type'] || $filter === $event['language'] || $filter === 'Wszystkie') {
+            // check if movie is played more then once
+            if (!in_array($event['name'], array_column($ajax, 'name'))) {
+                $ajax[$event['name']] = [
+                    'movie_id' => $event['movie_id'],
+                    'name' => $event['name'],
+                    'cinema_id' => $event['cinema_id'],
+                    'showtime' => array(
+                        array(
+                            'time' => date("H:i", $event['time']),
+                            'booking_link' => 'https://www.cinema-city.pl/' . $event['booking_link'],
+                            'movie_type' => $event['movie_type']
+                        )
+                    ),
+                    'data' => $event['data'],
+                    'poster_link' => $event['poster_link'],
+                    'length' => $event['length'],
+                ];
+            } else {
+                // if it is, push only playtime hour, booking link and attribute Ids
+                // repeated movie
+                $repeatedMN = $event['name'];
+                array_push($ajax[$repeatedMN]['showtime'], [
+                    'time' => date("H:i", $event['time']),
+                    'booking_link' => 'https://www.cinema-city.pl/' . $event['booking_link'],
+                    'movie_type' => $event['movie_type']
+                ]);
+            }
         }
     }
     // print_r($ajax);
     return $ajax;
 }
 //print_r(ajaxReturn(parseCinemaResponse($cinema_id, $date, $mysqli)));
-$ajaxFinal = ajaxReturn(parseCinemaResponse($cinema_id, $date, $mysqli));
+$ajaxFinal = ajaxReturn(parseCinemaResponse($cinema_id, $date, $mysqli), $filter);
 echo json_encode($ajaxFinal, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 
-function parseCinemaResponse($cinema_id, $date, $mysqli) {
+function parseCinemaResponse($cinema_id, $date, $mysqli)
+{
     $return = [];
     $movies = 'https://www.cinema-city.pl/pl/data-api-service/v1/quickbook/10103/film-events/in-cinema/' . $cinema_id . '/at-date/' . $date . '?attr=&lang=pl_PL';
     $oMovies = json_decode(json_encode(json_decode(file_get_contents($movies))));
@@ -144,11 +167,30 @@ function parseCinemaResponse($cinema_id, $date, $mysqli) {
                 $helperArr[$event['filmId']] = [$movie['name'], $movie['length']];
                 $time = strtotime($event['eventDateTime']);
                 $sql = '';
-                $sql = "INSERT INTO events (movie_id, name, cinema_id, time, data, booking_link, poster_link, length, attributeIds) VALUES ('" . $movie['id'] . "', '" . $movie['name'] . "', '" . $cinema_id . "', " . $time . ",'" . $date . "','" . $event['bookingLink'] . "', '" . $movie['posterLink'] . "', '" . $movie['length'] . "', '" . json_encode($movie['attributeIds']) . "')";
+                $sql = "INSERT INTO events (
+                            movie_id, 
+                            name,
+                            cinema_id, 
+                            time, 
+                            data, 
+                            booking_link, 
+                            poster_link, 
+                            length, 
+                            movie_type,
+                            language
+                            ) VALUES (
+                                '" . $movie['id'] . "', 
+                                '" . $movie['name'] . "', 
+                                '" . $cinema_id . "', 
+                                " . $time . ",
+                                '" . $date . "',
+                                '" . $event['bookingLink'] . "', 
+                                '" . $movie['posterLink'] . "', 
+                                '" . $movie['length'] . "', 
+                                '" . typeOfMovie($movie['attributeIds']) . "',
+                                '" . langVersion($movie['attributeIds']) . "')";
                 // echo $sql;die;
                 //var_dump($sql);
-
-
                 $return[] = [
                     'movie_id' => $movie['id'],
                     'name' => $movie['name'],
@@ -158,9 +200,10 @@ function parseCinemaResponse($cinema_id, $date, $mysqli) {
                     'booking_link' => $event['bookingLink'],
                     'poster_link' => $movie['posterLink'],
                     'length' => $movie['length'],
-                    'attributeIds' => $movie['attributeIds']
+                    'movie_type' => typeOfMovie($movie['attributeIds']),
+                    'language' => langVersion($movie['attributeIds'])
                 ];
-
+                //print_r($return);
                 $mysqli->query($sql);
             }
         }
@@ -168,5 +211,9 @@ function parseCinemaResponse($cinema_id, $date, $mysqli) {
     $sql = "INSERT INTO cache_info (cinema_id, time, data) VALUES ('" . $cinema_id . "', '" . time() . "','" . $date . "')";
 
     $mysqli->query($sql);
+    // $c = array_filter($return, function($filter){
+    //      return $filter == '2D';
+    // });
+
     return $return;
 }

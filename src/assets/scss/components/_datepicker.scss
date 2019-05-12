@@ -1,39 +1,42 @@
 /* --- datepicker header --- */
 .datepicker-date-display {
-    background: $c-p-black-g;
+  background: $c-p-black-g;
 }
 
-.datepicker-table{
-    color: $c-p-black;
+.datepicker-table {
+  color: $c-p-black;
 }
 
 .btn-flat {
-    color: $c-p-orange;
-    text-transform: capitalize;
+  color: $c-p-orange;
+  text-transform: capitalize;
 }
 
 .is-today {
-    color: $c-s-orange !important;
+  color: $c-s-orange !important;
 }
 
 .is-selected {
+  border-radius: 4px !important;
+  background: $c-p-black-g !important;
+  .datepicker-day-button {
     background: $c-p-black-g !important;
+  }
 }
 
-
 .select-month > input {
-    width: 90px !important;
+  width: 90px !important;
 }
 
 /* --- Datepicker month and year dropdown --- */
 .dropdown-content {
-    li > span {
-        font-size: 14px;
-        color: $c-p-orange;
-    }
+  li > span {
+    font-size: 14px;
+    color: $c-p-orange;
+  }
 }
 
 // reset strange background on datepicker
 .modal-overlay {
-    background: none !important;
+  background: none !important;
 }

@@ -1,0 +1,25 @@
+.input-field {
+  height: 45px;
+  border-radius: 4px;
+  max-width: 400px;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-align: right;
+  .search-bar {
+    border-radius: 4px;
+    color: $c-p-white !important;
+    font-size: 13px !important;
+    &:focus {
+      background: $c-bg !important;
+      color: $c-p-white !important;
+    }
+
+    &:focus:not(.browser-default) + label i {
+      color: $c-p-white !important;
+    }
+
+    .material-icons {
+      color: $c-p-white !important;
+    }
+  }
+}
