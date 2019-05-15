@@ -11,10 +11,18 @@ body {
   color: $c-p-white;
   margin-top: 56px;
   font-family: $ff;
+  overflow-x: hidden;
+}
+
+.app {
+  margin: 0 auto;
+  width: auto;
+  max-width: 1024px !important;
 }
 
 .wrapper {
   width: 90%;
+  max-width: 1024px !important;
   margin: 0 auto;
 }
 
@@ -83,5 +91,5 @@ body {
 }
 
 form.wrapper {
-  padding-top: 20px !important;
+  padding-top: 8px !important;
 }

@@ -6,6 +6,8 @@ const filterSelect = document.querySelector('.select-filter'); //must use classN
 const movieList = document.getElementById('movieList');
 
 function createContent(data) {
+  var d = new Date();
+  // console.log(d.getHours(), d.getMinutes(), d.getSeconds(),  'usuwam loader');
   movieList.innerHTML = ''; // clear movies list
   let docFragment = document.createDocumentFragment();
   // looping through ajax response
@@ -38,32 +40,33 @@ function createContent(data) {
       }</a>
                 </li>
             `;
-      console.log('dodano', showTimeList);
+      //console.log('dodano', showTimeList);
     }
-    console.log('render');
+    //console.log('render');
     movieTile.appendChild(showTimeList);
     docFragment.appendChild(movieTile);
   }
   movieList.appendChild(docFragment);
 }
-
-T.post(
-  './config/savetocache.php',
-  dateInput.value,
-  cinemaSelect.value,
-  filterSelect.value,
-  function(data) {
-    createContent(data);
-    noResults();
-  }
-);
+// T.post(
+//   './config/savetocache.php',
+//   dateInput.value,
+//   cinemaSelect.value,
+//   filterSelect.value,
+//   function(data) {
+//     console.log(d.getHours(), d.getMinutes(), d.getSeconds());
+//     createContent(data);
+//     console.log(d.getHours(), d.getMinutes(), d.getSeconds());
+//     noResults();
+//   }
+// );
 
 dateInput.addEventListener('change', selectDate);
 cinemaSelect.addEventListener('change', selectCinema);
 filterSelect.addEventListener('change', selectFilter);
 
 function selectCinema() {
-  console.log('kino select');
+  //console.log('kino select');
   T.post(
     './config/savetocache.php',
     dateInput.value,
@@ -77,13 +80,17 @@ function selectCinema() {
 }
 
 function selectDate() {
-  console.log(dateInput.value);
+  //console.log(dateInput.value);
+  var d = new Date();
+//console.log(d.getHours(), d.getMinutes(), d.getSeconds(), 'date-change');
   T.post(
     './config/savetocache.php',
     dateInput.value,
     cinemaSelect.value,
     filterSelect.value,
     function(data) {
+      d = new Date();
+      //console.log(d.getHours(), d.getMinutes(), d.getSeconds(), 'end-of-ajax');
       createContent(data);
       noResults();
     }
@@ -91,7 +98,7 @@ function selectDate() {
 }
 
 function selectFilter() {
-  console.log('filter select', filterSelect.value);
+  //console.log('filter select', filterSelect.value);
   T.post(
     './config/savetocache.php',
     dateInput.value,

@@ -63,13 +63,12 @@ function createDatePicker() {
         'Paź',
         'Gru'
       ],
-
-      firstDay: 1,
-      setDefaultDate: true,
-      defaultDate: new Date()
-    }
+    },
+    firstDay: 1,
+    setDefaultDate: true,
+    defaultDate: new Date()
   };
   let datepicker = M.Datepicker.init(elems, options);
   // let instance = M.Datepicker.getInstance(datepicker)
-  datepicker.setDate(new Date());
+  // datepicker.setDate(new Date());
 }

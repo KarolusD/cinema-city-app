@@ -11,6 +11,11 @@
   margin-bottom: 16px;
   padding-left: 76px;
 
+  // @media (min-width: 800px) {
+  //   display: inline-block;
+  //   width: calc(100% / 2 - 32px);
+  // }
+
   &__img {
     position: absolute;
     bottom: 50%;

@@ -1,12 +1,15 @@
 .select--filter {
   margin-top: 16px;
-  &:before {
+  &:after {
     content: 'Filtruj po:';
     position: absolute;
-    top: -22px;
+    top: -23px;
     left: 0;
     font-size: 12px;
     color: $c-p-gray;
+    @media (mix-width: 601px) {
+      top: -26px !important;
+    }
   }
 
   input {
