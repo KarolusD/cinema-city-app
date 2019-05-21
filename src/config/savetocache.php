@@ -32,14 +32,14 @@ function typeOfMovie($a)
     } else if (in_array('3d', $a)) {
         $type = "3D";
     }
-    if (in_array('vip', $a)) {
-        $type = 'VIP ' . $type;
-    }
+    // if (in_array('vip', $a)) {
+    //     $type = 'VIP ' . $type;
+    // }
 
     return $type;
 }
 
-function langVersion($a, $movie)
+function langVersion($a)
 {
     $lang = null;
     // echo '<h2>' . $movie . '</h2>';
@@ -82,7 +82,7 @@ require_once('./db.php');
 
 $cinema_id = $_POST['cinema'] ?? CINEMA_BONARKA;
 // $date = $_POST['date'] ?? date("d-m-Y");
-$date = $_POST['date'] ?? '13-05-2019';
+$date = $_POST['date'] ?? date("d-m-Y");
 $date = date("Y-m-d", strtotime($date));
 $filter = $_POST['filter'] ?? 'Wszystkie';
 
@@ -124,7 +124,7 @@ function ajaxReturn($return, $filter)
     foreach ($return as $event) {
         //print_r($event);
         // check if movie_type(2D, 3D) is the same as selected filter
-        if ($filter === $event['movie_type'] || $filter === $event['language'] || $filter === 'Wszystkie') {
+        if ($filter === $event['movie_type'] || $filter === $event['language'] || $filter === $event['movie_type'] . " " . $event['language'] || $filter === 'Wszystkie') {
             // check if movie is played more then once
             if (!in_array($event['name'], array_column($ajax, 'name'))) {
                 $ajax[$event['name']] = [
@@ -170,7 +170,6 @@ function parseCinemaResponse($cinema_id, $date, $mysqli)
     $oMovies = objectToArray($oMovies);
     $aMovies = $oMovies['body']['films'];
     $aEvents = $oMovies['body']['events'];
-
 
     $helperArr = [];
     $flag = true;

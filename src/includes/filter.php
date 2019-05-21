@@ -4,7 +4,7 @@
         <?php foreach ($aFormats as $f) : ?>
             <option value="<?= $f ?>"><?= $f ?></option>
         <?php endforeach; ?>
-        <option value="" disabled>Opracowanie</option>
+        <!-- <option value="" disabled>Opracowanie</option> -->
         <?php foreach ($aLang as $l) : ?>
             <option value="<?= $l ?>"><?= $l ?></option>
         <?php endforeach; ?>

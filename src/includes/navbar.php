@@ -1,4 +1,4 @@
-<nav class="nav ">
+<nav class="nav">
     <div class="nav-wrapper wrapper">
         <form>
             <div class="row">

@@ -35,7 +35,7 @@
 <meta property="og:title" content="Seanse w Cinema City Kraków" />
 <meta property="og:image" content="http://cinemacity.site/assets/images/prev-img.png" />
 <!--must be an absolute url-->
-<meta property="og:description" content="" />
+<meta property="og:description" content="Aplikacja pozwalająca na szybkie wyszukiwanie seansów w kinach Cinema City w Krakowie" />
 <!--if the site has an associated facebook page-->
 <!-- <meta property="fb:admins" content="Facebook numberic ID" /> -->
 

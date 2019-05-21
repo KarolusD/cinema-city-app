@@ -10,6 +10,8 @@
   border-radius: 4px;
   margin-bottom: 16px;
   padding-left: 76px;
+  animation: showList 300ms ease-out;
+  animation-fill-mode: both;
 
   // @media (min-width: 800px) {
   //   display: inline-block;
@@ -84,5 +86,34 @@
         height: 100%;
       }
     }
+  }
+}
+$total-items: 12;
+
+@keyframes showList {
+  0% {
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(100px);
+  }
+  1% {
+    visibility: visible;
+    opacity: 0;
+  }
+
+  75% {
+    opacity: 0.5;
+    transform: translateY(0);
+  }
+
+  100% {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+@for $i from 1 through $total-items {
+  .movie:nth-child(#{$i}) {
+    animation-delay: 0.05s * $i;
   }
 }

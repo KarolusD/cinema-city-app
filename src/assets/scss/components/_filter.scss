@@ -1,5 +1,8 @@
 .select--filter {
+  -webkit-tap-highlight-color: transparent;
   margin-top: 16px;
+  text-align: left !important;
+  width: 150px !important;
   &:after {
     content: 'Filtruj po:';
     position: absolute;
@@ -13,12 +16,36 @@
   }
 
   input {
-    text-align: left;
+    padding-right: 16px !important;
+    box-sizing: border-box !important;
+    width: 150px !important;
+    text-align: left !important;
     background: none !important;
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+    user-select: none !important;
   }
 
+  // ul {
+  //   max-height: 200px !important;
+  //   overflow-y: scroll !important;
+  //   &::-webkit-scrollbar {
+  //     display: none;
+  //   }
+  // }
+
   ul li {
-    text-align: left;
+    text-align: left !important;
+    -webkit-tap-highlight-color: transparent;
+    &.selected {
+      label {
+        span::before {
+          border-right: 2px solid $c-p-orange !important;
+          border-bottom: 2px solid $c-p-orange !important;
+        }
+      }
+    }
   }
 }
 

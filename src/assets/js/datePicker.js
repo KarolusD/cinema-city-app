@@ -15,7 +15,7 @@ function createDatePicker() {
   //     .join('-')
   // );
   const options = {
-   format: 'dd-mm-yyyy',
+    format: 'dd-mm-yyyy',
     i18n: {
       cancel: 'Anuluj',
       done: 'Zatwierdź',
@@ -62,11 +62,12 @@ function createDatePicker() {
         'Lis',
         'Paź',
         'Gru'
-      ],
+      ]
     },
     firstDay: 1,
     setDefaultDate: true,
-    defaultDate: new Date()
+    defaultDate: new Date(),
+    minDate: new Date()
   };
   let datepicker = M.Datepicker.init(elems, options);
   // let instance = M.Datepicker.getInstance(datepicker)

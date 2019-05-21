@@ -10,6 +10,6 @@ $aCinemas = [
     "Bonarka" => CINEMA_BONARKA,
 ];
 
-$aFormats = ['Wszystkie', '2D', '3D', '4DX 3D'];
+$aFormats = ['Wszystkie', '2D', '2D Z napisami', '3D', '4DX 3D'];
 
 $aLang = ['Dubbing', 'Z napisami', 'Po polsku'];

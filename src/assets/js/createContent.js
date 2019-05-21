@@ -1,4 +1,5 @@
 import { T } from './vendors/ajax';
+import { searchMain } from './search';
 
 const dateInput = document.getElementById('dateInput');
 const cinemaSelect = document.querySelector('.select-cinema'); //must use className
@@ -6,7 +7,8 @@ const filterSelect = document.querySelector('.select-filter'); //must use classN
 const movieList = document.getElementById('movieList');
 
 function createContent(data) {
-  var d = new Date();
+  
+  
   // console.log(d.getHours(), d.getMinutes(), d.getSeconds(),  'usuwam loader');
   movieList.innerHTML = ''; // clear movies list
   let docFragment = document.createDocumentFragment();
@@ -17,6 +19,9 @@ function createContent(data) {
     movieTile.classList.add('movie');
     showTimeList.classList.add('movie__showtimes-list');
     //console.log(data[property]);
+    if (search.value) {
+      movieTile.style.display = 'none';
+    }
 
     movieTile.innerHTML = `
             <img
@@ -47,6 +52,8 @@ function createContent(data) {
     docFragment.appendChild(movieTile);
   }
   movieList.appendChild(docFragment);
+  searchMain();
+  noResults();
 }
 // T.post(
 //   './config/savetocache.php',
@@ -74,7 +81,6 @@ function selectCinema() {
     filterSelect.value,
     function(data) {
       createContent(data);
-      noResults();
     }
   );
 }
@@ -92,12 +98,12 @@ function selectDate() {
       d = new Date();
       //console.log(d.getHours(), d.getMinutes(), d.getSeconds(), 'end-of-ajax');
       createContent(data);
-      noResults();
     }
   );
 }
 
 function selectFilter() {
+ 
   //console.log('filter select', filterSelect.value);
   T.post(
     './config/savetocache.php',
@@ -106,9 +112,10 @@ function selectFilter() {
     filterSelect.value,
     function(data) {
       createContent(data);
-      noResults();
     }
-  );
+    );
+  // var r = searchFor(search.value, new Date().getTime());
+  // renderMovieList(r.toHide, r.toShow);
 }
 
 function noResults() {

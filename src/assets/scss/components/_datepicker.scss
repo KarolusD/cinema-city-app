@@ -5,6 +5,14 @@
 
 .datepicker-table {
   color: $c-p-black;
+  width: auto !important;
+  td {
+    width: 40px;
+    height: 40px;
+    button {
+      line-height: 40px !important;
+    }
+  }
 }
 
 .btn-flat {

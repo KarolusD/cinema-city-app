@@ -9,11 +9,13 @@ var stamp = 0;
 function generateHash() {
   return new Date().getTime();
 }
+export let searchMain = searchInputEv.bind(search);
+
 
 function searchInputEv() {
   stamp = generateHash();
   var searchString = this.value;
-  if (searchString.length >= 3) {
+  if (searchString.length >= 1) {
     // console.log(this.value, '********');
     // console.log('wygenerowany cl', stamp);
     try {
@@ -38,7 +40,8 @@ function searchInputEv() {
     }
   }
 }
-function searchFor(searchString, hash) {
+
+export function searchFor(searchString, hash) {
   // console.log(searchString, '******');
   var movieList = document.querySelectorAll('#movieList .movie');
   var toHide = [];
@@ -68,13 +71,14 @@ function searchFor(searchString, hash) {
   return r;
 }
 
-function renderMovieList(toHide, toShow) {
+export function renderMovieList(toHide, toShow) {
   for (let i in toHide) {
     toHide[i].style.display = 'none';
   }
   for (let i in toShow) {
     toShow[i].style.display = 'block';
   }
+  // noMatches()
 }
 
 function focusInput(event) {
@@ -92,6 +96,39 @@ function removeFocus() {
     }
   }
 
+  // if (document.querySelector('.no-results')) {
+  //   document
+  //     .getElementById('movieList')
+  //     .removeChild(document.querySelector('.no-results'));
+  // }
+}
+
+function noMatches() {
+  var movieList = document.querySelectorAll('#movieList .movie');
+  
+  let noMatch = false;
+  for (let i in movieList) {
+    if (movieList[i].querySelector) {
+      if(movieList[i].style.display === 'none') {
+        noMatch = true;
+      } else {
+        noMatch = false;
+        break;
+      } 
+    }
+  }
+  
+  if (noMatch === true && !document.querySelector('.no-results')) {
+    console.log('1');
+    var p = document.createElement('p');
+    p.classList.add('no-results');
+    p.innerText = 'Brak wyników wyszukiwania';
+    document.getElementById('movieList').appendChild(p);
+  } else if (noMatch === false && document.querySelector('.no-results')) {
+    document
+      .getElementById('movieList')
+      .removeChild(document.querySelector('.no-results'));
+  }
 }
 
 var defaultDiacriticsRemovalMap = [
