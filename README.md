@@ -1,4 +1,4 @@
-# Project Title
+# Cinema City App
 
 An app which provides movies repetitore and posibility to filter them by type and date, design with mobile-first approach.
 
@@ -12,10 +12,10 @@ This should be installed on your computer in order to get up and running:
 
 ### Installing
 
-### `git clone`
-### `cd cinema-city-app`
-### `npm install`
-### `npm start`
+1. `git clone`
+2. `cd cinema-city-app`
+3. `npm install`
+4. `npm start`
 
 ## Deployment
 
