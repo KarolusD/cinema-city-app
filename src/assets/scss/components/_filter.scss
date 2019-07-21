@@ -1,0 +1,80 @@
+.select--filter {
+  -webkit-tap-highlight-color: transparent;
+  margin-top: 16px;
+  text-align: left !important;
+  width: 150px !important;
+  &:after {
+    content: 'Filtruj po:';
+    position: absolute;
+    top: -23px;
+    left: 0;
+    font-size: 12px;
+    color: $c-p-gray;
+    @media (mix-width: 601px) {
+      top: -26px !important;
+    }
+  }
+
+  input {
+    padding-right: 16px !important;
+    box-sizing: border-box !important;
+    width: 150px !important;
+    text-align: left !important;
+    background: none !important;
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+    user-select: none !important;
+  }
+
+  // ul {
+  //   max-height: 200px !important;
+  //   overflow-y: scroll !important;
+  //   &::-webkit-scrollbar {
+  //     display: none;
+  //   }
+  // }
+
+  ul li {
+    text-align: left !important;
+    -webkit-tap-highlight-color: transparent;
+    &.selected {
+      label {
+        span::before {
+          border-right: 2px solid $c-p-orange !important;
+          border-bottom: 2px solid $c-p-orange !important;
+        }
+      }
+    }
+  }
+}
+
+.filter-icon span {
+  position: absolute;
+  left: -4px;
+  top: 18px;
+}
+
+.filter-icon span,
+.filter-icon span:before,
+.filter-icon span:after {
+  cursor: pointer;
+  border-radius: 1px;
+  height: 2px;
+  width: 16px;
+
+  background: white;
+  position: absolute;
+  display: block;
+  content: '';
+}
+.filter-icon span:before {
+  width: 24px;
+  top: -6px;
+  left: -4px;
+}
+.filter-icon span:after {
+  width: 8px;
+  bottom: -6px;
+  left: 4px;
+}

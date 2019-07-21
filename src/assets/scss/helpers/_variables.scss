@@ -1,0 +1,22 @@
+/* --- Colors --- */
+
+// background
+$c-bg: #00171F;
+
+// primary colors
+$c-p-white: #FFFFFF;
+$c-p-black: #223843;
+$c-p-gray: #667D92;
+$c-p-orange: #F5821E;
+// primary gradients
+$c-p-black-g: linear-gradient(90deg, $c-bg 0%, $c-p-black 100%); 
+$c-p-gray-g: linear-gradient(90deg, $c-p-black 0%, $c-p-gray 100%); 
+
+// secondary colors
+$c-s-orange: #FFA24D;
+
+/* --- Fonts --- */
+
+$ff: 'Poppins', Arial, Helvetica, sans-serif;
+$fw-r: 400;
+$fw-sb: 600;

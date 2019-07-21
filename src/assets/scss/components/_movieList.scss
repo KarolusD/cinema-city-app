@@ -1,0 +1,119 @@
+.movie-list {
+  padding-top: 88px;
+}
+
+.movie {
+  position: relative;
+  height: auto;
+  min-height: 100px;
+  background: $c-p-black-g;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  padding-left: 76px;
+  animation: showList 300ms ease-out;
+  animation-fill-mode: both;
+
+  // @media (min-width: 800px) {
+  //   display: inline-block;
+  //   width: calc(100% / 2 - 32px);
+  // }
+
+  &__img {
+    position: absolute;
+    bottom: 50%;
+    transform: translateY(50%);
+    left: 8px;
+    height: 8px;
+    width: 60px;
+    height: 89px;
+    border-radius: 4px;
+  }
+
+  &__title {
+    display: inline-block;
+    vertical-align: top;
+    width: 48vw;
+    font-family: $ff;
+    font-weight: $fw-sb;
+    font-size: 14px;
+    margin: 6px 0 8px 0;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__length {
+    position: absolute;
+    right: 8px;
+    top: 6px;
+    font-family: $ff;
+    font-weight: $fw-r;
+    font-size: 12px;
+    color: $c-p-gray;
+  }
+
+  &__showtimes-list {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+    padding-right: 8px;
+
+    .showtimes-list__showtime {
+      position: relative;
+      background: $c-p-gray-g;
+      width: 52px;
+      height: 28px;
+      border-radius: 4px;
+      margin-right: 8px;
+      margin-bottom: 8px;
+
+      &:last-of-type {
+        margin-right: 0;
+      }
+
+      a {
+        padding-top: 6px;
+        position: absolute;
+        text-align: center;
+        color: $c-p-white;
+        font-family: $ff;
+        font-weight: $fw-sb;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}
+$total-items: 12;
+
+@keyframes showList {
+  0% {
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(100px);
+  }
+  1% {
+    visibility: visible;
+    opacity: 0;
+  }
+
+  75% {
+    opacity: 0.5;
+    transform: translateY(0);
+  }
+
+  100% {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+@for $i from 1 through $total-items {
+  .movie:nth-child(#{$i}) {
+    animation-delay: 0.05s * $i;
+  }
+}

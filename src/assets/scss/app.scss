@@ -1,0 +1,12 @@
+@import 'helpers/variables';
+
+@import './base/reset';
+@import 'base/base';
+
+@import 'components/loader';
+@import 'components/navbar';
+@import 'components/searchBar';
+@import 'components/movieList';
+@import 'components/cinemaDateSelects';
+@import 'components/datepicker';
+@import 'components/filter';
