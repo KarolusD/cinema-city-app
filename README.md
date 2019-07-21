@@ -24,11 +24,11 @@ This should be installed on your computer in order to get up and running:
 
 ## Built With
 
-* [JS]
-* [PHP]
-* [MySQL]
-* [SCSS]
-* [GULP]
+* JS
+* PHP
+* MySQL
+* SCSS
+* GULP
 
 ## Authors
 
