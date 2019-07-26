@@ -9,6 +9,7 @@ This should be installed on your computer in order to get up and running:
 - [Node.js](https://nodejs.org/en/)
 - [Gulp 4](https://gulpjs.com/)
 - [Sass](http://sass-lang.com/)
+- [Apache](https://httpd.apache.org/)
 
 ### Installing
 
@@ -21,6 +22,8 @@ This should be installed on your computer in order to get up and running:
 
 1. `npm run build`: This is used to build all files and run all tasks without serving a development server and watching for changes.
 2. `npm start`: This is the normal development script used to build all files and run all tasks, but also to serve a development server and watch for changes.
+
+*Note that database structure is in cinema_city.sql file at src directory (Apache or Nginx server needed)
 
 ## Built With
 
